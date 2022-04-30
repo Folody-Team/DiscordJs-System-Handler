@@ -1,5 +1,5 @@
 {
-  "name": "file-system-handler",
+  "name": "discordjs-system-handler",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.folody.js",
