@@ -1,0 +1,9 @@
+/node_modules
+/test/node_modules
+/test
+/dist
+/.history
+/src
+
+package-lock.json
+rollup.config.js
