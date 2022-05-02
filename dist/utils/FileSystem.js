@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileSystem = void 0;
-const fs = __importStar(require("fs"));
+const fs = Promise.resolve().then(() => __importStar(require('fs'))).then((function (fs) { return fs; })());
 const path = __importStar(require("path"));
 class FileSystem {
     static init(dirname) {
@@ -55,14 +55,13 @@ class FileSystem {
                 const args = message.content.slice(1).split(" ");
                 const command = args.shift().toLowerCase();
                 if (command) {
-                    fs.readFile(`${dir}/${command}.js`, 'utf8', (err, data) => {
-                        if (err) {
-                            message.channel.send('Command not found!');
-                        }
+                    fs.then(fs => fs.readFile(`${dir}/${command}.js`, 'utf8', (err, data) => {
+                        if (err)
+                            return message.channel.send('Command not found!');
                         else {
-                            eval('(function() {' + data + '}())');
+                            eval(`(function() {${data}}())`);
                         }
-                    });
+                    }));
                 }
             }
         });

@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+const fs = import('fs').then((function(fs) { return fs })());
 import * as path from 'path';
 export class FileSystem {
     static init(dirname: string): string {
@@ -27,13 +27,12 @@ export class FileSystem {
                 const args = message.content.slice(1).split(" ");
                 const command: string = args.shift().toLowerCase();
                 if(command){
-                    fs.readFile(`${dir}/${command}.js`, 'utf8', (err, data) => {
-                        if(err) {
-                            message.channel.send('Command not found!');
-                        } else {
-                            eval('(function() {' + data + '}())');
+                    fs.then(fs => fs.readFile(`${dir}/${command}.js`, 'utf8', (err, data: string) => {
+                        if(err) return message.channel.send('Command not found!');
+                        else {
+                            eval(`(function() {${data}}())`);
                         }
-                    });
+                    }));
                 }
 
             }
