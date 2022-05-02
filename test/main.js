@@ -8,5 +8,5 @@ FileSystem.setup('commands', client, '!', function() {
     client.on('ready', () => {
         console.log('Ready!');
     })
-    client.login("OTU0NTg4NTQ0NzEyNzA4MTQ2.YjVT3A.M1e0O-4nvRA7JLzXW5WIEyF3sVQ");
+    client.login("TOKEN");
 });
