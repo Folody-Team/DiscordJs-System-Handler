@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileSystem = void 0;
 const fs = Promise.resolve().then(() => __importStar(require('fs'))).then((function (fs) { return fs; })());
+const Error_handler_1 = require("../handler/Error.handler");
 const path = __importStar(require("path"));
 class FileSystem {
     static init(dirname) {
@@ -40,14 +41,7 @@ class FileSystem {
          * @param {string} prefix
          * @returns {void}
          */
-        if (!dirname || !client || !prefix)
-            return console.error('Error: dirname, client, prefix are required');
-        if (typeof dirname !== 'string')
-            return console.error('dirname must be a string');
-        if (typeof client !== 'object')
-            return console.error('client must be an object');
-        if (typeof prefix !== 'string')
-            return console.error('prefix must be a string');
+        (0, Error_handler_1.ErrorHandler)(client, dirname, fs, prefix, func);
         const dir = this.init(dirname);
         const pre = this.prefix(prefix);
         client.on('messageCreate', (message) => {

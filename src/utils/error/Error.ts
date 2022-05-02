@@ -1,3 +1,5 @@
+import { exit } from "process";
+
 /**
  * This is error file for the project.
  * It is used to handle the errors.
@@ -10,8 +12,8 @@ export const Error = {
      * @param {err} err
      */
     UnknownError: (dir: string, err: any) => {
-        err.then((fs: any) => fs.readDir(`${process.cwd()}/${dir}`, (err: any, files: any) => {
-            if(err) return console.error(err);
+        err.then((fs: any) => fs.readdir(`${process.cwd()}/${dir}`, (err: any, files: any) => {
+            if(err) console.error("Unknown directory: " + `${process.cwd()}/${dir}`); process.exit(0); exit(0);
         }));
     },
     /**
@@ -50,7 +52,7 @@ export const Error = {
      * @returns {void}
      */
     FunctionError: (func: Function) => {
-        if(!func) return 'Function is not defined';
-        if(typeof func!== 'function') return console.error('func must be a function');
+        if(!func){'Function is not defined'; exit(0)};
+        if(typeof func!== 'function'){console.error('func must be a function'); exit(0);}
     }
 }
