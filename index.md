@@ -1,37 +1,41 @@
-## Welcome to GitHub Pages
+# DiscordJS System Handler
 
-You can use the [editor on GitHub](https://github.com/Folody-Team/DiscordJs-System-Handler/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+ A javascript library support System Files Handler Commands.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## What is System Files Handler Commands ?
 
-### Markdown
+> ### System Files Handler Commands
+> 
+> **Info:** As an alternative to [**Commands Handler**](https://discordjs.guide/creating-your-bot/command-handling.html), it reduces the amount of code and does not need `module.exports` and optimizes your code. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Example
 
-```markdown
-Syntax highlighted code block
+```js
+const { FileSystem } = require('discordjs-system-handler');
+const { Client, Intents } = require('discord.js');
 
-# Header 1
-## Header 2
-### Header 3
+const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES]});
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+FileSystem.setup('commands', client, '!', function() {
+    client.on('ready', () => {
+        console.log('Ready!');
+    })
+    client.login("TOKEN");
+});
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+`FileSystem.setup(dirname, client, prefix, function)`
 
-### Jekyll Themes
+| Params   | Type     |
+| -------- | -------- |
+| dirname  | string   |
+| client   | any      |
+| prefix   | string   |
+| function | function |
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Folody-Team/DiscordJs-System-Handler/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+##### In example
 
-### Support or Contact
+You can see `commands` The library will read the directory containing the command files and correspond to the command name. That is, the user types the command name, the program will get the command name to read the command file contained in that directory. If there is none, it will be `NOT FOUND` 
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### NOTE: command name = file name
